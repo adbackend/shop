@@ -1,5 +1,5 @@
-# shop
-스프링부트 쇼핑몰 프로젝트(jpa)
+# SpringBoot-Project-Shop
+JPA를 활용한 쇼핑몰 프로젝트
 
 ## 🖥️ 프로젝트 소개
 스프링 부트 + JPA 쇼핑몰 사이트
