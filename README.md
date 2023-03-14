@@ -21,5 +21,5 @@
 - **ORM** : Mybatis
 
 ## 📌 주요 기능
-#### 테스트 코드 - <a href="" >상세보기 - WIKI 이동</a>
+#### 테스트 코드 - <a href="https://github.com/adbackend/shop/blob/main/src/test/java/com/shop/repository/ItemRepositoryTest.java" >상세보기 - WIKI 이동</a>
 - 검증
