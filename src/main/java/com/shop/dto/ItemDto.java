@@ -5,8 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Getter @Setter
 public class ItemDto {
 
     private Long id;
