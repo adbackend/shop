@@ -1,6 +1,6 @@
 package com.shop.service;
 
-import com.shop.ItemSellStatus;
+import com.shop.constant.ItemSellStatus;
 import com.shop.dto.ItemFormDto;
 import com.shop.dto.ItemImgDto;
 import com.shop.entity.Item;
@@ -68,7 +68,7 @@ public class ItemServiceTest {
         itemFormDto.setStockNumber(100);
 
         List<MultipartFile> multipartFileList = createMultipareFiles();
-        Long itemId = itemService.savedItem(itemFormDto, multipartFileList);
+        Long itemId = itemService.saveItem(itemFormDto, multipartFileList);
 
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
 
