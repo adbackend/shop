@@ -23,3 +23,5 @@ JPA를 활용한 쇼핑몰 프로젝트
 ## 📌 주요 기능
 #### 테스트 코드 - <a href="https://github.com/adbackend/shop/blob/main/src/test/java/com/shop/repository/ItemRepositoryTest.java" >상세보기 - WIKI 이동</a>
 - 검증
+
+![2023-05-27 21;41;47](https://github.com/adbackend/shop/assets/94349690/ff4b9eb5-cf51-4943-94b0-fc164c1ecb49)
