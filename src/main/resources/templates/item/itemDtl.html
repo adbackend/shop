@@ -24,17 +24,12 @@
         }
 
         function order(){
-            var token = $("meta[name='_csrf']").attr("content");
-            var header = $("meta[name='_csrf_header']").attr("content");
 
-            var header2 = document.querySelector('meta[name=_csrf]').getAttribute('content');
-            var header3 = document.querySelector('meta[name=_csrf_header]').getAttribute('content');
+            var token = document.querySelector('meta[name=_csrf]').getAttribute('content');
+            var header = document.querySelector('meta[name=_csrf_header]').getAttribute('content');
 
             console.log(token);
             console.log(header);
-            console.log(header2);
-            console.log(header3);
-
 
             var url = "/order";
 
