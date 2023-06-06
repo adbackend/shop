@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.constant.ItemSellStatus;
+import com.shop.constant.OrderStatus;
 import com.shop.dto.OrderDto;
 import com.shop.entity.Item;
 import com.shop.entity.Member;
@@ -86,6 +87,30 @@ class OrderServiceTest {
 
     }
 
+    @Test
+    @DisplayName("주문취소 테스트")
+    public void cancelOrder(){
+
+        Item item = saveItem();
+        Member member = saveMember();
+
+        OrderDto orderDto = new OrderDto();
+
+        orderDto.setCount(1);
+        orderDto.setItemId(item.getId());
+
+        Long orderId = orderService.order(orderDto, member.getEmail()); //주문 생성
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        assertEquals(item.getStockNumber(), 99); //주문취소전
+
+        orderService.cancelOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+        assertEquals(item.getStockNumber(), 100); //주문취소후 처음재고의 개수인 100개와 일치
+
+    }
 
 
 
