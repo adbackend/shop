@@ -22,10 +22,6 @@
             let checkAll = document.getElementById("checkAll");
             checkAll.addEventListener("click", (e) => { getCheckAll(e) });
 
-
-
-
-
         }); //end
 
         function getOrderTotalPrice(){
@@ -64,11 +60,12 @@
 
             getOrderTotalPrice();
 
+            updateCartItemCount(cartItemId, count); //장바구니 수량변경시 db의 장바구니 수량 업데이트
+
         } //function end
 
 
         function getCheckAll(e){
-            console.log("클릭 클릭");
 
             let checkVal = e.target.checked;
             let cartChkBoxs = document.getElementsByName("cartChkBox");
@@ -96,8 +93,68 @@
             }
         }
 
+        //장바구니 수량변경시 db의 장바구니 수량 업데이트
+        function updateCartItemCount(cartItemId, count){
 
+            let token = document.querySelector("meta[name=_csrf]").getAttribute("content");
+            let header = document.querySelector("meta[name=_csrf_header]").getAttribute("content");
 
+            let url = "/cartItem/" + cartItemId + "?count=" + count;
+
+            $.ajax({
+                url : url,
+                type : "PATCH",
+                beforeSend : function(xhr){
+                    //데이터를 전송하기 전에 헤더에 csrf 값을 설정
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                success : function(result, status){
+                    console.log("cartItem count update success");
+                },
+                error : function(jqXHR, status, error){
+                    if(jqXHR.status == "401"){
+                        alert("로그인 후 이용해주세요");
+                        location.href="/members/login";
+                    }else{
+                        alert(jqXHR.responseText);
+                    }
+                }
+            }); //ajax end
+
+        } //function end
+
+        //장바구니 상품 삭제
+        function deleteCartItem(obj){
+
+            let cartItemId = obj.dataset.id;
+            let token = document.querySelector("meta[name=_csrf]").getAttribute("content");
+            let header = document.querySelector("meta[name=_csrf_header]").getAttribute("content");
+
+            let url = "/cartItem/"+cartItemId;
+
+            $.ajax({
+                url : url,
+                type : "DELETE",
+                beforeSend : function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache : false,
+                success : function(result, status){
+                    location.href = "/cart";
+                },
+                error : function(jqXHR, status, error){
+                    if(jqXHR.status == "401"){
+                        alert("로그인 후 이용해주세요.");
+                    }else{
+                        alert(jqXHR.responseJSON.message);
+                    }
+                }
+
+            });
+
+        } //function end
 
     </script>
 </th:block>
@@ -166,7 +223,7 @@
                                     <input class="form-control mr-2" type="number" name="count" th:id="'count_'+${cartItem.cartItemId}"
                                         th:value="${cartItem.count}" min="1" onchange="changeCount(this)"/>
                                     <button type="button" class="close" aria-label="Close">
-                                        <span aria-hidden="true" th:data-id="${cartItem.cartItemId}">&times;</span>
+                                        <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">&times;</span>
                                     </button>
                                 </span>
                             </div>
